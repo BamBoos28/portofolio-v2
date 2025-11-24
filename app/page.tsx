@@ -1,6 +1,5 @@
 "use client";
 
-import ContainerProvider from "@/components/ui/ContainerProvider";
 import dynamic from "next/dynamic";
 
 // Lazy load setiap section berat

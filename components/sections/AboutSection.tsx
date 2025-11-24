@@ -60,7 +60,7 @@ export default function AboutSection() {
           {/* Personal Info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-gray-700 font-text">
             <InfoItem label="Name" value="Wan Aziz Zakaria" />
-            <InfoItem label="Phone" value="+62 856-4390-3451" />
+            <InfoItem label="Phone" value="+62 8954-2446-5906" />
             <InfoItem
               label="Age"
               value={(new Date().getFullYear() - 2003).toString()}

@@ -352,7 +352,7 @@ export const animationVariants = {
     visible: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.55, ease: [0.42, 0, 0.58, 1] },
+      transition: { duration: 0.55, ease: "easeInOut" },
     },
   },
   quickLinkContainer: {
@@ -419,7 +419,7 @@ export const PROJECTS = [
       { url: "abbi/6.jpg", alt: "quiz" },
       { url: "abbi/7.jpg", alt: "quiz" },
     ],
-    techStack: ["react native", "expo", "nativewind" , "typescript"],
+    techStack: ["react native", "expo", "nativewind", "typescript"],
   },
 
   {
@@ -437,7 +437,14 @@ export const PROJECTS = [
       { url: "absensi/6.png", alt: "admin" },
       { url: "absensi/7.png", alt: "admin" },
     ],
-    techStack: ["java", "android studio", "laravel", "blade" , "bootstrap", "mysql"],
+    techStack: [
+      "java",
+      "android studio",
+      "laravel",
+      "blade",
+      "bootstrap",
+      "mysql",
+    ],
   },
 
   {
@@ -455,7 +462,16 @@ export const PROJECTS = [
       { url: "AI-psikolog-app/2.jpg", alt: "admin" },
       { url: "AI-psikolog-app/4.jpg", alt: "admin" },
     ],
-    techStack: ["react native", "expo", "nativewind", "typescript" , "node.js" , "express.js" , "socket.IO" , "mysql"],
+    techStack: [
+      "react native",
+      "expo",
+      "nativewind",
+      "typescript",
+      "node.js",
+      "express.js",
+      "socket.IO",
+      "mysql",
+    ],
   },
 
   {
@@ -498,7 +514,7 @@ export const PROJECTS = [
       { url: "e-book/3.png", alt: "book 3" },
       { url: "e-book/4.png", alt: "book 4" },
     ],
-    techStack: ["react native" , "expo"],
+    techStack: ["react native", "expo"],
   },
 
   {
@@ -514,7 +530,7 @@ export const PROJECTS = [
       { url: "google-drive-clone/4.png", alt: "user" },
       { url: "google-drive-clone/5.png", alt: "user" },
     ],
-    techStack: ["next.js" ,"typescript", "tailwind" , "daisy.UI" , "react-icons"],
+    techStack: ["next.js", "typescript", "tailwind", "daisy.UI", "react-icons"],
   },
 
   {
@@ -529,7 +545,7 @@ export const PROJECTS = [
       { url: "portofolio-v1/3.png", alt: "portofolio" },
       { url: "portofolio-v1/4.png", alt: "portofolio" },
     ],
-    techStack: ["react.js" , "react-router" , "tailwind" , "swiper.js"],
+    techStack: ["react.js", "react-router", "tailwind", "swiper.js"],
   },
 
   {
@@ -546,7 +562,7 @@ export const PROJECTS = [
       { url: "setiajaya-komputer/5.png", alt: "admin" },
       { url: "setiajaya-komputer/6.png", alt: "admin" },
     ],
-    techStack: ["laravel" , "blade" , "mysql"],
+    techStack: ["laravel", "blade", "mysql"],
   },
 
   {
@@ -564,7 +580,7 @@ export const PROJECTS = [
       { url: "tahrib/9.png", alt: "santri" },
       { url: "tahrib/10.png", alt: "santri" },
     ],
-    techStack: ["laravel" , "blade" , "mysql"],
+    techStack: ["laravel", "blade", "mysql"],
   },
 
   {
@@ -579,7 +595,7 @@ export const PROJECTS = [
       { url: "toko-saya/3.png", alt: "user" },
       { url: "toko-saya/4.png", alt: "user" },
     ],
-    techStack: ["next.js" ,"typescript", "tailwind" , "daisy.UI" , "react-icons"],
+    techStack: ["next.js", "typescript", "tailwind", "daisy.UI", "react-icons"],
   },
 
   {
@@ -592,7 +608,7 @@ export const PROJECTS = [
       { url: "web-cms/1.png", alt: "user" },
       { url: "web-cms/2.png", alt: "admin" },
     ],
-    techStack: ["laravel" , "blade" , "mysql"],
+    techStack: ["laravel", "blade", "mysql"],
   },
 
   {
@@ -608,7 +624,7 @@ export const PROJECTS = [
       { url: "web-umkm/4.png", alt: "" },
       { url: "web-umkm/5.png", alt: "" },
     ],
-    techStack: ["laravel" , "blade" , "mysql"],
+    techStack: ["laravel", "blade", "mysql"],
   },
 ];
 

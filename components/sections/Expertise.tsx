@@ -3,19 +3,6 @@
 import { Code2, Smartphone, Package as Cube, Database } from "lucide-react";
 import { motion } from "framer-motion";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  }),
-};
-
 export default function ExpertiseSection() {
   return (
     <section
@@ -108,7 +95,6 @@ export default function ExpertiseSection() {
             <motion.div
               key={i}
               custom={i}
-              variants={cardVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}

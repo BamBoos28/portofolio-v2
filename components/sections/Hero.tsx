@@ -9,29 +9,25 @@ export default function Hero() {
     <section className="flex flex-col-reverse md:flex-row items-center justify-between p-10 mt-12 container mx-auto ">
       <motion.div
         className="w-full md:w-1/2 z-10 bg-white/50"
-        variants={animationVariants.heroContainer}
         initial="hidden"
         animate="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <motion.h1
-          variants={animationVariants.heroItem}
+        <h1
           className="text-5xl md:text-7xl font-bold font-header"
         >
           Hello. I'm Wan
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          variants={animationVariants.heroItem}
+        <p
           className="mt-4 text-lg font-text"
         >
           Saya seorang pengembang web yang bersemangat dalam membangun
           pengalaman digital yang indah dan fungsional. Mari wujudkan ide
           Anda.
-        </motion.p>
+        </p>
 
         <motion.button
-          variants={animationVariants.heroItem}
           className="inline-block px-6 py-2 mt-6 border-2 border-gray-500 bg-gray-200 font-bold hover:bg-gray-300 uppercase font-header"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}

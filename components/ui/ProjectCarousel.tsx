@@ -9,7 +9,7 @@ import { animationVariants } from "@/data/constants";
 interface ProjectCarouselProps {
   projects: Project[];
   activeIndex: number;
-  setActiveIndex: (index: number) => void;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function ProjectCarousel({
@@ -45,7 +45,6 @@ export default function ProjectCarousel({
       viewport={{ once: true, amount: 0.2 }}
       className="container mx-auto flex flex-col md:flex-row-reverse gap-6 px-6"
     >
-
       {/* === Mockup Browser Utama === */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 30 }}
