@@ -104,7 +104,7 @@ export default function ContactSection() {
           </div>
 
           {/* Icon morphing */}
-          <div className="flex flex-col md:flex-row items-center gap-8 justify-center w-full">
+          <div className="flex flex-col md:flex-row items-center gap-8 justify-center md:justify-start w-full">
             <svg viewBox="0 0 24 24" width="150" height="150">
               <motion.path
                 d={pathD as any}
