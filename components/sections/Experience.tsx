@@ -7,13 +7,13 @@ import { experiences, educations } from "@/data/constants";
 export default function ExperienceSection() {
   const [selected, setSelected] = useState(experiences[0]);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-500px" });
+  const isInView = useInView(ref, { once: true});
 
   return (
     <section
       id="experience"
       ref={ref}
-      className="py-28 border-b-4 border-gray-500 bg-gray-200"
+      className="py-24 border-b-4 border-gray-500 bg-gray-200"
     >
       <div className="container mx-auto px-6">
         {/* Header */}

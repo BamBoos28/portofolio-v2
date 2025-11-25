@@ -44,20 +44,20 @@ export default function ContactSection() {
     }
   }, [active, progress, isInView]);
 
-  // Interval hanya aktif jika section terlihat
-  useEffect(() => {
-    if (!isInView) return;
+  // // Interval hanya aktif jika section terlihat
+  // useEffect(() => {
+  //   if (!isInView) return;
 
-    const tick = () => setActive((p) => (p + 1) % CONTACTS.length);
-    const id = window.setInterval(tick, 5000);
+  //   const tick = () => setActive((p) => (p + 1) % CONTACTS.length);
+  //   const id = window.setInterval(tick, 5000);
 
-    return () => clearInterval(id);
-  }, [isInView]);
+  //   return () => clearInterval(id);
+  // }, [isInView]);
 
   return (
-    <section ref={ref} className="py-28 to-white border-b-4 border-gray-500">
+    <section ref={ref} className="py-24 border-b-4 border-gray-500">
       <motion.div
-        className="container mx-auto flex flex-col md:flex-row items-center gap-21"
+        className="container mx-auto flex flex-row items-center gap-21"
         initial={shouldReduceMotion ? {} :{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
@@ -86,8 +86,8 @@ export default function ContactSection() {
         </motion.div>
 
         {/* Bagian kanan */}
-        <div className="flex flex-col items-start text-left space-y-8">
-          <div>
+        <div className="flex flex-col items-start text-left space-y-8 ">
+          <div className="px-4">
             <motion.h2
               className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 font-header"
               initial={{ opacity: 0, y: 10 }}
@@ -96,7 +96,7 @@ export default function ContactSection() {
             >
               Contact
             </motion.h2>
-            <p className="text-gray-600 leading-relaxed max-w-md font-text">
+            <p className="text-gray-600 leading-relaxed md:font-text">
               Tertarik berdiskusi? Jangan ragu untuk menghubungi saya melalui
               platform di bawah ini. Saya terbuka untuk kolaborasi, proyek
               freelance, atau sekadar berbagi ide.
@@ -104,7 +104,7 @@ export default function ContactSection() {
           </div>
 
           {/* Icon morphing */}
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-8 justify-center w-full">
             <svg viewBox="0 0 24 24" width="150" height="150">
               <motion.path
                 d={pathD as any}

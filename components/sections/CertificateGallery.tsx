@@ -40,7 +40,7 @@ export default function CertificateGallery() {
   }, [isPaused, active]);
 
   return (
-    <section className="relative py-20 bg-gray-100 border-b-4 border-gray-500 overflow-hidden">
+    <section className="relative py-24 bg-gray-100 border-b-4 border-gray-500 overflow-hidden">
       <div className="text-center mb-6">
         <h2 className="text-4xl font-header font-bold text-gray-800">
           Sertifikat Saya

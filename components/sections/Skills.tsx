@@ -9,13 +9,13 @@ import { TechStack } from "@/types";
 export default function Skills() {
   const [selected, setSelected] = useState<TechStack>(techStacks[0]);
   const skillRef = useRef(null);
-  const isInViewSkill = useInView(skillRef, { once: true, margin: "-500px" });
+  const isInViewSkill = useInView(skillRef, { once: true});
 
   return (
     <section
       id="skill"
       ref={skillRef}
-      className="py-28 border-b-4 border-gray-500"
+      className="py-24 border-b-4 border-gray-500"
     >
       <div className="container mx-auto px-6 flex flex-col items-center justify-center">
         <h2 className="text-4xl font-header font-bold text-gray-800 mb-4 text-center">

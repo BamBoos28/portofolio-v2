@@ -19,7 +19,7 @@ export default function ProjectCarousel({
 }: ProjectCarouselProps) {
   const [direction, setDirection] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-500px" });
+  const isInView = useInView(ref, { once: true});
 
   const next = () => {
     setDirection(1);

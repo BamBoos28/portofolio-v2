@@ -7,7 +7,7 @@ export default function ExpertiseSection() {
   return (
     <section
       id="expertise"
-      className="relative py-20 border-b-4 border-gray-500 bg-gray-100"
+      className="relative py-24 border-b-4 border-gray-500 bg-gray-100"
     >
       {/* Section Title */}
       <motion.div

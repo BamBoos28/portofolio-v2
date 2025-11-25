@@ -10,7 +10,7 @@ export default function Projects() {
   return (
     <section
       id="project"
-      className="pt-28 pb-26 bg-gray-200 border-y-4 border-gray-500"
+      className="py-24 bg-gray-200 border-y-4 border-gray-500"
     >
       <h2 className="text-4xl font-header font-bold text-center mb-4">
         Project

@@ -7,7 +7,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative  py-20 bg-gray-50 border-b-4 border-gray-500 overflow-hidden"
+      className="relative  py-24 bg-gray-50 border-b-4 border-gray-500 overflow-hidden"
     >
       {/* Content */}
       <div className="container mx-auto flex flex-col lg:flex-row-reverse gap-12 px-6 lg:px-12">
