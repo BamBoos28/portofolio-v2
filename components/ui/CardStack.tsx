@@ -1,7 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
+
+type ImageItem = {
+  url: string;
+  alt: string;
+};
 
 type Card = {
   id: number;
@@ -12,26 +17,126 @@ type Card = {
 export default function CardStack({
   images,
 }: {
-  images: { url: string; alt: string }[];
+  images: ImageItem[];
 }) {
   const [cards, setCards] = useState<Card[]>([]);
-  const [swipeInfo, setSwipeInfo] = useState<{
-    id: number;
-    dir: number;
-  } | null>(null);
+  const [loadedMap, setLoadedMap] = useState<Record<number, boolean>>({});
+  const [swipeInfo, setSwipeInfo] = useState<{ id: number; dir: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Initialize cards
+  // lazy control: start loading only when component is in viewport
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // initialize cards (structure only) whenever images prop changes
   useEffect(() => {
-    if (images.length > 0) {
-      setCards(images.map((img, i) => ({ id: i, src: img.url , alt : img.alt })));
+    if (images && images.length > 0) {
+      const initial = images.map((img, i) => ({ id: i, src: img.url, alt: img.alt || "" }));
+      setCards(initial);
+      // reset loaded map
+      const map: Record<number, boolean> = {};
+      initial.forEach((c) => (map[c.id] = false));
+      setLoadedMap(map);
+    } else {
+      setCards([]);
+      setLoadedMap({});
     }
   }, [images]);
 
+  // intersection observer to trigger shouldLoad
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // if already set to load, skip
+    if (shouldLoad) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting) {
+          setShouldLoad(true);
+          if (observerRef.current) {
+            observerRef.current.disconnect();
+            observerRef.current = null;
+          }
+        }
+      },
+      { root: null, rootMargin: "300px", threshold: 0.1 } // preload a bit earlier
+    );
+
+    observerRef.current.observe(el);
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+    };
+  }, [shouldLoad]);
+
+  // sequentially load images when shouldLoad becomes true
+  useEffect(() => {
+    if (!shouldLoad) return;
+    if (!images || images.length === 0) return;
+
+    let cancelled = false;
+
+    (async () => {
+      for (let i = 0; i < images.length; i++) {
+        if (cancelled) break;
+        // if already loaded (maybe from previous run), skip
+        if (loadedMap[i]) continue;
+
+        await new Promise<void>((resolve) => {
+          const img = new window.Image();
+          img.src = images[i].url;
+
+          // if browser already cached the image, onload triggers very fast
+          img.onload = () => {
+            if (!cancelled) {
+              setLoadedMap((prev) => ({ ...prev, [i]: true }));
+              resolve();
+            } else {
+              resolve();
+            }
+          };
+          img.onerror = () => {
+            // still mark as loaded to remove skeleton, you can set fallback behavior here
+            if (!cancelled) {
+              setLoadedMap((prev) => ({ ...prev, [i]: true }));
+              resolve();
+            } else {
+              resolve();
+            }
+          };
+
+          // safety: timeout in case image stalls (so skeleton won't show forever)
+          const t = setTimeout(() => {
+            if (!cancelled) {
+              setLoadedMap((prev) => ({ ...prev, [i]: true }));
+            }
+            clearTimeout(t);
+            resolve();
+          }, 3000);
+        });
+
+        // small delay between starting each image to avoid burst
+        await new Promise((r) => setTimeout(r, 120));
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldLoad, images]);
+
   const top = cards[0];
 
-  // Swipe threshold
+  // Swipe thresholds (same as before)
   const DIST_THRESHOLD = 120;
   const VEL_THRESHOLD = 500;
 
@@ -69,18 +174,21 @@ export default function CardStack({
     setIsDragging(true);
   }
 
-  // Reset when empty
+  // Reset when empty (reinitialize)
   useEffect(() => {
     if (cards.length === 0 && images.length > 0) {
       const timer = setTimeout(() => {
-        setCards(
-          images.map((img, i) => ({ id: i, src: img.url, alt: img.alt }))
-        );
-      }, 500);
-
+        const reinit = images.map((img, i) => ({ id: i, src: img.url, alt: img.alt || "" }));
+        setCards(reinit);
+        const map: Record<number, boolean> = {};
+        reinit.forEach((c) => (map[c.id] = false));
+        setLoadedMap(map);
+        // also set shouldLoad true so images start loading again
+        setShouldLoad(true);
+      }, 600);
       return () => clearTimeout(timer);
     }
-  }, [cards, images]);
+  }, [cards.length, images]);
 
   // Clean up swipe info after animation completes
   function onExitComplete() {
@@ -89,18 +197,14 @@ export default function CardStack({
   }
 
   return (
-    <div className="relative w-full flex items-center justify-center">
+    <div className="relative w-full flex items-center justify-center" ref={containerRef}>
       {/* Main container untuk memusatkan semua kartu */}
-      <div className="relative w-[320px] md:w-[420px]  flex items-center justify-center">
-        <AnimatePresence
-          onExitComplete={onExitComplete}
-          initial={false}
-          mode="popLayout"
-        >
+      <div className="relative w-[320px] md:w-[420px] flex items-center justify-center">
+        <AnimatePresence onExitComplete={onExitComplete} initial={false} mode="popLayout">
           {top && (
             <motion.div
               key={top.id}
-              drag={isAnimating ? false : "x"} // Disable drag during animation
+              drag={isAnimating ? false : "x"}
               dragElastic={0.2}
               dragConstraints={{ left: 0, right: 0 }}
               onDragStart={handleDragStart}
@@ -124,39 +228,36 @@ export default function CardStack({
                 cursor: "grabbing",
               }}
               exit={{
-                x:
-                  swipeInfo && swipeInfo.id === top.id
-                    ? swipeInfo.dir * 1000
-                    : 1000,
-                rotate:
-                  swipeInfo && swipeInfo.id === top.id
-                    ? swipeInfo.dir * 25
-                    : 25,
+                x: swipeInfo && swipeInfo.id === top.id ? swipeInfo.dir * 1000 : 1000,
+                rotate: swipeInfo && swipeInfo.id === top.id ? swipeInfo.dir * 25 : 25,
                 opacity: 0,
                 scale: 0.8,
-                transition: {
-                  duration: 0.5,
-                  ease: [0.32, 0.72, 0, 1],
-                },
+                transition: { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
               }}
-              transition={{
-                type: "spring",
-                stiffness: 350,
-                damping: 30,
-              }}
+              transition={{ type: "spring", stiffness: 350, damping: 30 }}
               className="w-full max-h-96 rounded-2xl shadow-2xl bg-white overflow-hidden cursor-grab touch-none"
-              style={{
-                zIndex: 20,
-                cursor: isAnimating ? "default" : "grab",
-              }}
+              style={{ zIndex: 20, cursor: isAnimating ? "default" : "grab" }}
             >
-              <div className="w-full max-h-96 relative">
-                <motion.img
-                  src={top.src}
-                  alt={`card-${top.id}`}
-                  className="w-full max-h-96 object-contain select-none"
-                  draggable={false}
-                />
+              <div className="w-full max-h-96 relative bg-gray-50 flex items-center justify-center">
+                {/* show skeleton while this top image not loaded or while we haven't started loading */}
+                {!shouldLoad || !loadedMap[top.id] ? (
+                  <div className="absolute inset-0 p-4 flex items-center justify-center">
+                    <div className="w-full h-full rounded-2xl bg-gray-200 animate-pulse" />
+                  </div>
+                ) : null}
+
+                {/* Render actual <img> only when shouldLoad === true (prevents early requests) */}
+                {shouldLoad ? (
+                  <motion.img
+                    src={top.src}
+                    alt={top.alt || `card-${top.id}`}
+                    className={`w-full max-h-96 object-contain select-none ${loadedMap[top.id] ? "opacity-100" : "opacity-0"}`}
+                    draggable={false}
+                    onLoad={() => setLoadedMap((prev) => ({ ...prev, [top.id]: true }))}
+                    onError={() => setLoadedMap((prev) => ({ ...prev, [top.id]: true }))}
+                  />
+                ) : null}
+
                 {/* Label bawah */}
                 <motion.div
                   className="absolute left-4 bottom-4 bg-white/90 px-3 py-1 rounded-lg backdrop-blur text-sm font-medium shadow-sm"
@@ -164,7 +265,7 @@ export default function CardStack({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {top.alt}
+                  {top.alt || `Photo #${top.id + 1}`}
                 </motion.div>
 
                 {/* Indikator swipe */}
@@ -176,9 +277,7 @@ export default function CardStack({
                 </motion.div>
 
                 {/* Overlay selama animasi */}
-                {isAnimating && (
-                  <div className="absolute inset-0 bg-transparent pointer-events-none" />
-                )}
+                {isAnimating && <div className="absolute inset-0 bg-transparent pointer-events-none" />}
               </div>
             </motion.div>
           )}
@@ -196,34 +295,27 @@ export default function CardStack({
               <motion.div
                 key={c.id}
                 className="absolute w-full h-full rounded-2xl overflow-hidden bg-gray-100 shadow-lg"
-                initial={{
-                  y: translateY,
-                  scale,
-                  rotate,
-                  opacity: 0.8,
-                }}
-                animate={{
-                  y: translateY,
-                  scale,
-                  rotate,
-                  opacity: 0.8 - depth * 0.1,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30,
-                  delay: depth * 0.05,
-                }}
-                style={{
-                  zIndex: 20 - depth,
-                }}
+                initial={{ y: translateY, scale, rotate, opacity: 0.8 }}
+                animate={{ y: translateY, scale, rotate, opacity: Math.max(0.6, 0.8 - depth * 0.1) }}
+                transition={{ type: "spring", stiffness: 300, damping: 30, delay: depth * 0.05 }}
+                style={{ zIndex: 20 - depth }}
               >
-                <img
-                  src={c.src}
-                  alt={`card-${c.id}`}
-                  className="w-full h-full object-cover"
-                  draggable={false}
-                />
+                {/* skeleton if not loaded */}
+                {!shouldLoad || !loadedMap[c.id] ? (
+                  <div className="w-full h-full bg-gray-200 animate-pulse" />
+                ) : null}
+
+                {/* only render image tag when shouldLoad true */}
+                {shouldLoad ? (
+                  <img
+                    src={c.src}
+                    alt={c.alt || `card-${c.id}`}
+                    className={`w-full h-full object-cover ${loadedMap[c.id] ? "" : "opacity-0"}`}
+                    draggable={false}
+                    onLoad={() => setLoadedMap((prev) => ({ ...prev, [c.id]: true }))}
+                    onError={() => setLoadedMap((prev) => ({ ...prev, [c.id]: true }))}
+                  />
+                ) : null}
               </motion.div>
             );
           })}

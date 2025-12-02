@@ -29,7 +29,7 @@ export default function ContactSection() {
   const [active, setActive] = useState(0);
   const progress = useMotionValue(active);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-300px" });
+  const isInView = useInView(ref, { once: true });
   const shouldReduceMotion = useReducedMotion();
 
   const paths = useMemo(() => CONTACTS.map((c) => c.path), []);
