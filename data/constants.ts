@@ -411,13 +411,13 @@ export const PROJECTS = [
     description:
       "Aplikasi interaktif untuk anak-anak belajar bahasa Inggris dengan kuis dan fitur speech-to-text.",
     image: [
-      { url: "abbi/1.jpg", alt: "opening" },
-      { url: "abbi/2.jpg", alt: "dashboard" },
-      { url: "abbi/3.jpg", alt: "learn" },
-      { url: "abbi/4.jpg", alt: "learn" },
-      { url: "abbi/5.jpg", alt: "quiz" },
-      { url: "abbi/6.jpg", alt: "quiz" },
-      { url: "abbi/7.jpg", alt: "quiz" },
+      { url: "abbi/1.png", alt: "opening" },
+      { url: "abbi/2.png", alt: "dashboard" },
+      { url: "abbi/3.png", alt: "learn" },
+      { url: "abbi/4.png", alt: "learn" },
+      { url: "abbi/5-min.jpg", alt: "quiz" },
+      { url: "abbi/6-min.jpg", alt: "quiz" },
+      { url: "abbi/7-min.jpg", alt: "quiz" },
     ],
     techStack: ["react native", "expo", "nativewind", "typescript"],
   },
@@ -454,13 +454,13 @@ export const PROJECTS = [
     description:
       "Aplikasi konsultasi online yang memadukan AI untuk saran otomatis dan chat langsung dengan admin/psikolog.",
     image: [
-      { url: "AI-psikolog-app/1.jpg", alt: "user" },
-      { url: "AI-psikolog-app/6.jpg", alt: "user" },
-      { url: "AI-psikolog-app/3.jpg", alt: "user" },
-      { url: "AI-psikolog-app/5.jpg", alt: "user" },
-      { url: "AI-psikolog-app/7.jpg", alt: "user" },
-      { url: "AI-psikolog-app/2.jpg", alt: "admin" },
-      { url: "AI-psikolog-app/4.jpg", alt: "admin" },
+      { url: "AI-psikolog-app/1-min.jpg", alt: "user" },
+      { url: "AI-psikolog-app/6-min.jpg", alt: "user" },
+      { url: "AI-psikolog-app/3-min.jpg", alt: "user" },
+      { url: "AI-psikolog-app/5-min.jpg", alt: "user" },
+      { url: "AI-psikolog-app/7-min.jpg", alt: "user" },
+      { url: "AI-psikolog-app/2-min.jpg", alt: "admin" },
+      { url: "AI-psikolog-app/4-min.jpg", alt: "admin" },
     ],
     techStack: [
       "react native",
@@ -482,8 +482,8 @@ export const PROJECTS = [
       "Desain 3D box amplifier — model yang dihasilkan untuk keperluan produksi dan visualisasi produk.",
     image: [
       { url: "box-amplifier/1.jpg", alt: "final" },
-      { url: "box-amplifier/2.png", alt: "3D" },
-      { url: "box-amplifier/3.png", alt: "3D" },
+      { url: "box-amplifier/2-min.png", alt: "3D" },
+      { url: "box-amplifier/3-min.png", alt: "3D" },
     ],
     techStack: ["inventor"],
   },
@@ -555,11 +555,11 @@ export const PROJECTS = [
     description:
       "Website e-commerce untuk katalog toko dengan pembayaran online, dashboard admin, dan fitur pelacakan pesanan serta chat admin.",
     image: [
-      { url: "setiajaya-komputer/1.png", alt: "user" },
-      { url: "setiajaya-komputer/2.png", alt: "user" },
-      { url: "setiajaya-komputer/3.png", alt: "user" },
-      { url: "setiajaya-komputer/4.png", alt: "user" },
-      { url: "setiajaya-komputer/5.png", alt: "admin" },
+      { url: "setiajaya-komputer/1-min.png", alt: "user" },
+      { url: "setiajaya-komputer/2-min.png", alt: "user" },
+      { url: "setiajaya-komputer/3-min.png", alt: "user" },
+      { url: "setiajaya-komputer/4-min.png", alt: "user" },
+      { url: "setiajaya-komputer/5-min.png", alt: "admin" },
       { url: "setiajaya-komputer/6.png", alt: "admin" },
     ],
     techStack: ["laravel", "blade", "mysql"],
@@ -572,13 +572,13 @@ export const PROJECTS = [
     description:
       "Platform seperti Google Classroom dengan beberapa layout: promosi pesantren, admin, ustad (pengajar), dan santri (siswa) lengkap dengan monitoring aktivitas harian, mingguan, dan bulanan.",
     image: [
-      { url: "tahrib/1.png", alt: "guest" },
-      { url: "tahrib/2.png", alt: "guest" },
-      { url: "tahrib/3.png", alt: "admin" },
-      { url: "tahrib/6.png", alt: "udstad" },
-      { url: "tahrib/8.png", alt: "santri" },
-      { url: "tahrib/9.png", alt: "santri" },
-      { url: "tahrib/10.png", alt: "santri" },
+      { url: "tahrib/1-min.png", alt: "guest" },
+      { url: "tahrib/2-min.png", alt: "guest" },
+      { url: "tahrib/3-min.png", alt: "admin" },
+      { url: "tahrib/6-min.png", alt: "udstad" },
+      { url: "tahrib/8-min.png", alt: "santri" },
+      { url: "tahrib/9-min.png", alt: "santri" },
+      { url: "tahrib/10-min.png", alt: "santri" },
     ],
     techStack: ["laravel", "blade", "mysql"],
   },
@@ -590,7 +590,7 @@ export const PROJECTS = [
     description:
       "Website penjualan sederhana yang fokus pada area layanan lokal, proses checkout tanpa login (mengisi data diri & alamat).",
     image: [
-      { url: "toko-saya/1.png", alt: "user" },
+      { url: "toko-saya/1-min.png", alt: "user" },
       { url: "toko-saya/2.png", alt: "user" },
       { url: "toko-saya/3.png", alt: "user" },
       { url: "toko-saya/4.png", alt: "user" },
@@ -605,8 +605,8 @@ export const PROJECTS = [
     description:
       "Sistem CMS untuk mengelola konten website secara dinamis melalui panel admin.",
     image: [
-      { url: "web-cms/1.png", alt: "user" },
-      { url: "web-cms/2.png", alt: "admin" },
+      { url: "web-cms/1-min.png", alt: "user" },
+      { url: "web-cms/2-min.png", alt: "admin" },
     ],
     techStack: ["laravel", "blade", "mysql"],
   },
@@ -618,13 +618,26 @@ export const PROJECTS = [
     description:
       "Platform untuk memantau UMKM terdaftar, melacak penjualan, dan melihat laporan keuntungan serta statistik bulanan.",
     image: [
-      { url: "web-umkm/1.png", alt: "" },
-      { url: "web-umkm/2.png", alt: "" },
-      { url: "web-umkm/3.png", alt: "" },
-      { url: "web-umkm/4.png", alt: "" },
-      { url: "web-umkm/5.png", alt: "" },
+      { url: "web-umkm/1-min.png", alt: "" },
+      { url: "web-umkm/2-min.png", alt: "" },
+      { url: "web-umkm/3-min.png", alt: "" },
+      { url: "web-umkm/4-min.png", alt: "" },
+      { url: "web-umkm/5-min.png", alt: "" },
     ],
     techStack: ["laravel", "blade", "mysql"],
+  },
+    {
+    id: 14,
+    name: "Lamp Tower",
+    category: "Other",
+    description:
+      "Lampu Darurat LED yang ringkas dan hemat energi, dirancang dengan fungsionalitas ganda sebagai Power Bank (Bank Daya) portabel.",
+    image: [
+      { url: "lamp/1.jpg", alt: "final" },
+      { url: "lamp/2.png", alt: "3D" },
+      { url: "lamp/3.png", alt: "3D" },
+    ],
+    techStack: ["inventor"],
   },
 ];
 
